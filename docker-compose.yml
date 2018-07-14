@@ -34,7 +34,7 @@ services:
     ports:
     - "7474:7474"
     - "7687:7687"
-    volumes:
+    # volumes:
     # - /mnt/jokio_data/neo4j/data:/data
     # - /mnt/jokio_data/neo4j/logs:/logs
     # - /mnt/jokio_data/neo4j/plugins:/plugins
