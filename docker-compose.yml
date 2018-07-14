@@ -34,10 +34,10 @@ services:
     ports:
     - "7474:7474"
     - "7687:7687"
-    # volumes:
-    # - /mnt/jokio_data/neo4j/data:/data
+    volumes:
+    - /neo4j/data:/data
     # - /mnt/jokio_data/neo4j/logs:/logs
-    # - /mnt/jokio_data/neo4j/plugins:/plugins
+    - /neo4j/plugins:/plugins
     environment:
       NEO4J_dbms_memory_heap_maxSize: 300M
       NEO4J_dbms_unmanaged__extension__classes: org.neo4j.graphql=/graphql
