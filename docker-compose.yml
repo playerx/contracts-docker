@@ -20,6 +20,13 @@ services:
     ports:
     - "4000:4000"
 
+  contracts-web:
+    container_name: contracts-web
+    image: registry.jok.io/contracts-server:latest
+    restart: always
+    ports:
+    - "80:4200"
+
   neo4j:
     container_name: neo4j
     image: neo4j:3.4.0
