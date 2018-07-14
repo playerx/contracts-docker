@@ -39,7 +39,7 @@ services:
     # - /mnt/jokio_data/neo4j/logs:/logs
     # - /mnt/jokio_data/neo4j/plugins:/plugins
     environment:
-      NEO4J_dbms_memory_heap_maxSize: 500M
+      NEO4J_dbms_memory_heap_maxSize: 300M
       NEO4J_dbms_unmanaged__extension__classes: org.neo4j.graphql=/graphql
       NEO4J_dbms_security_procedures_unrestricted: graphql.*,apoc.*
     labels:
