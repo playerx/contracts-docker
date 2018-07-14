@@ -25,7 +25,7 @@ services:
     image: registry.jok.io/contracts-web:latest
     restart: always
     ports:
-    - "80:4200"
+    - "4200:4200"
 
   neo4j:
     container_name: neo4j
