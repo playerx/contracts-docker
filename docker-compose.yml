@@ -29,15 +29,15 @@ services:
 
   neo4j:
     container_name: neo4j
-    image: neo4j:3.3
+    image: neo4j:3.4.1
     restart: always
     ports:
     - "7474:7474"
     - "7687:7687"
     volumes:
-    - /mnt/jokio_data/neo4j/data:/data
-    - /mnt/jokio_data/neo4j/logs:/logs
-    - /mnt/jokio_data/neo4j/plugins:/plugins
+    # - /mnt/jokio_data/neo4j/data:/data
+    # - /mnt/jokio_data/neo4j/logs:/logs
+    # - /mnt/jokio_data/neo4j/plugins:/plugins
     environment:
       NEO4J_dbms_memory_heap_maxSize: 500M
       NEO4J_dbms_unmanaged__extension__classes: org.neo4j.graphql=/graphql
