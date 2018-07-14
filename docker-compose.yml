@@ -14,8 +14,8 @@ services:
 #       - /mnt/jokio_data/server/acme:/etc/traefik/acme
 
   contracts-server:
-    container_name: contracts-server:latest
-    image: registry.jok.io/contracts-server
+    container_name: contracts-server
+    image: registry.jok.io/contracts-server:latest
     restart: always
     ports:
     - "4000:4000"
