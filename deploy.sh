@@ -1,4 +1,4 @@
-
+#!/bin/sh
 rootFolderName=contracts-docker
 
 cd /tmp
