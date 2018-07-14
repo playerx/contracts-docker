@@ -1,1 +1,2 @@
 registry.jok.io/contracts-server:latest
+registry.jok.io/contracts-web:latest
