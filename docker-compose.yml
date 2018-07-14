@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+#   reverse-proxy:
+#     container_name: traefik
+#     image: traefik # The official Traefik docker image
+#     ports:
+#       - "80:80"     # The HTTP port
+#       - "443:443"
+#       - "8080:8080" # The Web UI (enabled by --api)
+#     volumes:
+#       - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
+#       - /mnt/jokio_data/server/traefik.toml:/traefik.toml
+#       - /mnt/jokio_data/server/acme:/etc/traefik/acme
+
+  contracts-server:
+    container_name: contracts-server:latest
+	image: registry.jok.io/contracts-server
+	restart: always
+	ports:
+	- "4000:4000"
+
+  # contracts-client:
+  #   container_name: contracts-client:latest
+	# image: registry.jok.io/contracts-client
+	# restart: always
+	# ports:
+	# - "4200:4200"
+
+  neo4j:
+    container_name: neo4j
+    image: neo4j:3.4.0
+    restart: always
+    ports:
+    - "7474:7474"
+    - "7687:7687"
+    volumes:
+    - /mnt/jokio_data/neo4j/data:/data
+    - /mnt/jokio_data/neo4j/logs:/logs
+    - /mnt/jokio_data/neo4j/plugins:/plugins
+    environment:
+      NEO4J_dbms_memory_heap_maxSize: 500M
+      NEO4J_dbms_unmanaged__extension__classes: org.neo4j.graphql=/graphql
+      NEO4J_dbms_security_procedures_unrestricted: graphql.*,apoc.*
+    labels:
+      - "traefik.backend=neo4j"
+      - "traefik.frontend.rule=Host:contracts-db.jok.io"
+      - "traefik.enable=true"
+      - "traefik.port=7474"
