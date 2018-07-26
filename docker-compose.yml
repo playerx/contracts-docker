@@ -19,6 +19,11 @@ services:
     restart: always
     ports:
     - "4000:4000"
+    environment:
+      PRISMA_MANAGEMENT_API_SECRET: ${PRISMA_MANAGEMENT_API_SECRET}
+      DB_ENDPOINT:  ${DB_ENDPOINT}
+      PRISMA_SECRET:  ${PRISMA_SECRET}
+
 
   contracts-web:
     container_name: contracts-web
