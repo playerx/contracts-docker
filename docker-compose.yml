@@ -27,23 +27,56 @@ services:
     ports:
     - "80:4200"
 
-  neo4j:
-    container_name: neo4j
-    image: neo4j:3.4.1
+
+  prisma:
+    container_name: prisma-service
+    image: prismagraphql/prisma:1.12
     restart: always
     ports:
-    - "7474:7474"
-    - "7687:7687"
-    volumes:
-    - /neo4j/data:/data
-    # - /mnt/jokio_data/neo4j/logs:/logs
-    - /neo4j/plugins:/plugins
+    - "4466:4466"
     environment:
-      NEO4J_dbms_memory_heap_maxSize: 300M
-      NEO4J_dbms_unmanaged__extension__classes: org.neo4j.graphql=/graphql
-      NEO4J_dbms_security_procedures_unrestricted: graphql.*,apoc.*
-    labels:
-      - "traefik.backend=neo4j"
-      - "traefik.frontend.rule=Host:contracts-db.jok.io"
-      - "traefik.enable=true"
-      - "traefik.port=7474"
+      PRISMA_CONFIG: |
+        managementApiSecret: ${PRISMA_MANAGEMENT_API_SECRET}
+        port: 4466
+        databases:
+          default:
+            connector: mysql
+            active: true
+            host: mysql
+            port: 3306
+            user: root
+            password: prisma
+
+  mysql:
+    container_name: prisma-db
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: prisma
+    volumes:
+      - db-persistence:/var/lib/mysql
+
+  # neo4j:
+  #   container_name: neo4j
+  #   image: neo4j:3.4.1
+  #   restart: always
+  #   ports:
+  #   - "7474:7474"
+  #   - "7687:7687"
+  #   volumes:
+  #   - /neo4j/data:/data
+  #   # - /mnt/jokio_data/neo4j/logs:/logs
+  #   - /neo4j/plugins:/plugins
+  #   environment:
+  #     NEO4J_dbms_memory_heap_maxSize: 300M
+  #     NEO4J_dbms_unmanaged__extension__classes: org.neo4j.graphql=/graphql
+  #     NEO4J_dbms_security_procedures_unrestricted: graphql.*,apoc.*
+  #   labels:
+  #     - "traefik.backend=neo4j"
+  #     - "traefik.frontend.rule=Host:contracts-db.jok.io"
+  #     - "traefik.enable=true"
+  #     - "traefik.port=7474"
+
+
+volumes:
+  db-persistence:
