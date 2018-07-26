@@ -18,7 +18,7 @@ services:
     image: registry.jok.io/contracts-server:latest
     restart: always
     ports:
-    - "4000:4000"
+    - "5000:5000"
     environment:
       PRISMA_MANAGEMENT_API_SECRET: ${PRISMA_MANAGEMENT_API_SECRET}
       DB_ENDPOINT:  ${DB_ENDPOINT}
